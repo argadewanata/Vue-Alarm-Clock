@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project1-RereArgaD-5025201078</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel = "stylesheet" type="text/css" href="style.css" media="screen"/>
+
+    <!-- Toastr Notification -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+</head>
+<body>
+  <div id = "app"> 
+    <div class="table">
+      <div class="cell">  
+        <h1 class="Clock"> {{CurrentHour}}:{{CurrentMinute}}:{{CurrentSecond}} </h1>
+        
+        <input type = "text" placeholder="Hour (HH)"   v-model = "AlarmHour"   maxlength="2"/>
+        <input type = "text" placeholder="Minute (MM)" v-model = "AlarmMinute" maxlength="2"/>
+        <input type = "text" placeholder="Second (SS)" v-model = "AlarmSecond" maxlength="2"/>
+        
+        <p>
+          <button id="StopAlarmButton"@click="playSound(false)">Stop Alarm</button>
+          <button id="SetAlarmButton" @click="setAlarm()">Set Alarm</button>
+        </p>  
+        
+      </div>
+    </div>
+  </div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
