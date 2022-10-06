@@ -68,17 +68,23 @@
         </select>
       </div>
     </div>
-
     <br>
+    <div class = "InputAlarmMessage">
+      <input type="text" v-model="AlarmMessage" placeholder="Alarm Message">
+    </div>
+
     <div class="btn-group">
-      <button class="SetAlarmButton btn-alarm" @click="setAlarm">Set</button>
       <button class="StopAlarmButton btn-alarm" @click="stopSound">Stop</button>
+      <button class="SetAlarmButton btn-alarm" @click="setAlarm">Set</button>
       <button class="SnoozeButton btn-alarm" @click="snooze">Snooze</button>
     </div>
 
     <section class="alarm-list">
+      <div class = "Upcoming-Alarm">
+        <p>Upcoming Alarm</p>
+      </div>
 			<div class="alarm-item" v-for="alarm in AlarmList">
-        <p class="alarm-content">{{`${alarm.hour}:${alarm.minute}:${alarm.second}`}}</p>
+        <p class="alarm-content">{{`${alarm.hour}:${alarm.minute}:${alarm.second} ${alarm.message}`}}</p>
         <button class="delete-alarm" @click="deleteAlarm(alarm)">Delete</button>
 			</div>
 		</section>

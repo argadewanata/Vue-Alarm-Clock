@@ -33,10 +33,12 @@ const app = Vue.createApp({
             SetAlarmHour: null,
             SetAlarmMinute: null,
             SetAlarmSecond: null,
+            SetAlarmMessage:null,
 
             AlarmHour: null,
             AlarmMinute: null, 
-            AlarmSecond: null, 
+            AlarmSecond: null,
+            AlarmMessage: null, 
 
             AlarmSound: sound,
 
@@ -66,7 +68,6 @@ const app = Vue.createApp({
         toastr.options.preventDuplicates = true;
 
         this.AlarmList = JSON.parse(localStorage.getItem('alarmList')) || [];
-        console.log("ini adalah alarm listnya:" + this.AlarmList);  
     },
     methods:{
         checkValue(){
@@ -153,20 +154,22 @@ const app = Vue.createApp({
             this.SetAlarmHour = this.AlarmHour
             this.SetAlarmMinute = this.AlarmMinute
             this.SetAlarmSecond = this.AlarmSecond
+            this.SetAlarmMessage = this.AlarmMessage
                  
             this.AlarmList.push({
                 hour: this.SetAlarmHour,
                 minute: this.SetAlarmMinute,
-                second: this.SetAlarmSecond
+                second: this.SetAlarmSecond,
+                message: this.SetAlarmMessage
             })
 
-            toastr.success(`Alarm telah ditambahkan pada ${this.SetAlarmHour}:${this.SetAlarmMinute}:${this.SetAlarmSecond}`)
+            toastr.success(`Alarm has been added at ${this.SetAlarmHour}:${this.SetAlarmMinute}:${this.SetAlarmSecond} for ${this.SetAlarmMessage}`)
         },
         checkAlarm(){
             for (let i = 0; i<this.AlarmList.length; i++) {
                 console.log(this.AlarmList[i])
                 if ((this.CurrentHour == this.AlarmList[i].hour) && (this.CurrentMinute == this.AlarmList[i].minute) && (this.CurrentSecond == this.AlarmList[i].second)) {
-                    this.playSound()
+                    this.playSound(this.AlarmList[i].message)
                 }
             }
         },
@@ -182,12 +185,14 @@ const app = Vue.createApp({
 
             toastr.success("Alarm has been deleted.")
         },
-        playSound(){
+        playSound(message){
             this.AlarmSound.play();
+            toastr.success(`Alarm ringing for ${message}`)
         },
         stopSound(){
             this.AlarmSound.pause();
             this.AlarmSnooze = {};
+            toastr.success("Alarm Stopped.")
         },
         snooze(){
             this.AlarmSound.pause();

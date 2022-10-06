@@ -12,7 +12,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2e2e44;
+    background: #355070;
 }
 
 .digital-clock{
@@ -147,15 +147,28 @@ body{
     margin-top:10px;
 }
 
-
-/* Center a button */
-button:hover {
+.StopAlarmButton:hover {
     color: #fff;
-    background: #0D00A4;
+    background: red;
+}
+
+.SetAlarmButton:hover {
+    color: #fff;
+    background: green;
+}
+
+.SnoozeButton:hover {
+    color: #fff;
+    background: blue;
+}
+
+.delete-alarm:hover{
+    color: #fff;
+    background: red;
 }
 input{
-    height: 20px;
-    width: 75px;
+    height: 50px;
+    width: 400px;
     background: white;
 }
 
@@ -196,4 +209,8 @@ input{
 
 .alarm-content {
     padding-right: 1rem;
+}
+
+.Upcoming-Alarm{
+    color: #fff;
 }
