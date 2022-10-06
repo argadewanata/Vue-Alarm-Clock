@@ -6,31 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project1-RereArgaD-5025201078</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel = "stylesheet" type="text/css" href="style.css" media="screen"/>
 
     <!-- Toastr Notification -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 <body>
   <div id = "app"> 
-    <div class="table">
-      <div class="cell">  
-        <h1 class="Clock"> {{CurrentHour}}:{{CurrentMinute}}:{{CurrentSecond}} </h1>
-        
-        <input type = "text" placeholder="Hour (HH)"   v-model = "AlarmHour"   maxlength="2"/>
-        <input type = "text" placeholder="Minute (MM)" v-model = "AlarmMinute" maxlength="2"/>
-        <input type = "text" placeholder="Second (SS)" v-model = "AlarmSecond" maxlength="2"/>
-        
-        <p>
-          <button id="StopAlarmButton"@click="playSound(false)">Stop Alarm</button>
-          <button id="SetAlarmButton" @click="setAlarm()">Set Alarm</button>
-        </p>  
-        
+    <div class = "digital-clock">
+      <div class = "CurrentTime">
+        <span class="CurrentHours">{{CurrentHour}}</span>
+        <span class="CurrentDots">:</span>
+        <span class="CurrentMinutes">{{CurrentMinute}}</span>
+        <div class = "right-side">
+          <span class = "CurrentSeconds">{{CurrentSecond}}</span>
+        </div>
+      </div>
+      <div class = "CurrentCalendar">
+        <span class="CurrentDayName">{{CurrentDayName}}</span>
+        <span class="CurrentDayNumber">{{CurrentDayNumber}}</span>
+        <span class="CurrentMonth">{{CurrentMonth}}</span>
+        <span class="CurrentYear">{{CurrentYear}}</span>
       </div>
     </div>
+
+    <br>
+    <div class = "Alarm-Selector">
+      <div class = "InputAlarmHour">
+        <select v-model="AlarmHour">
+          <option value="">Select Hour</option>
+          <option 
+            :key   = "hour.value"
+            :title = "hour.value"
+            :value = "hour.value"
+            v-for="hour in Hour24">{{hour.value}}
+          </option>
+        </select>
+      </div>
+      <div class = "InputAlarmMinute">
+        <select v-model="AlarmMinute">
+          <option value="">Select Minute</option>
+          <option 
+            :key   = "minute.value"
+            :title = "minute.value"
+            :value = "minute.value"
+            v-for="minute in Minute60">{{minute.value}}
+          </option>
+        </select>
+      </div>
+      <div class = "InputAlarmSecond">
+        <select v-model="AlarmSecond">
+          <option value="">Select Second</option>
+          <option 
+            :key   = "second.value"
+            :title = "second.value"
+            :value = "second.value"
+            v-for="second in Second60">{{second.value}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <br>
+    <div class="btn-group">
+      <button class="SetAlarmButton btn-alarm" @click="setAlarm">Set</button>
+      <button class="StopAlarmButton btn-alarm" @click="stopSound">Stop</button>
+      <button class="SnoozeButton btn-alarm" @click="snooze">Snooze</button>
+    </div>
+
+    <section class="alarm-list">
+			<div class="alarm-item" v-for="alarm in AlarmList">
+        <p class="alarm-content">{{`${alarm.hour}:${alarm.minute}:${alarm.second}`}}</p>
+        <button class="delete-alarm" @click="deleteAlarm(alarm)">Delete</button>
+			</div>
+		</section>
+ 
   </div>
-<script type="module" src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
